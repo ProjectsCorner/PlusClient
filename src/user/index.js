@@ -28,6 +28,7 @@ function User() {
         <Route path="user/login" element={<Login />} />
         <Route path="user/new" element={<Register />} />
         <Route path="order/checkout" element={<Checkout />} />
+        <Route path="order/finish" element={<FinishOrder />} />
       </Routes>
     </BrowserRouter>
   );
