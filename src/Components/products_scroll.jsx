@@ -45,8 +45,8 @@ export default function Products(props) {
       <div className="-scroll -ct-trending" ref={scrollBackRef}>
         {[1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 3, 4, 5].map((v, i) => {
           return (
-            <Link to="/item/id">
-              <Item key={i} />
+            <Link to="/item/id" key={i}>
+              <Item />
             </Link>
           );
         })}

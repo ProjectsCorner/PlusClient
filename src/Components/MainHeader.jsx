@@ -311,118 +311,20 @@ export default () => {
             </div>
             <div className="hdr-user">
               <div className="hdr-user-help">
-                <button className="-dropdown" onFocus={focus} onBlur={blur}>
-                  <Help fontSize="small" />
-                  <span>Help</span>
-                  {state.helpDropDownActive ? (
-                    <ExpandUpIcon />
-                  ) : (
-                    <ExpandDownIcon />
-                  )}
-                </button>
-                <ul
-                  className="-help-list -acc-l"
-                  style={
-                    state.helpDropDownActive
-                      ? { display: "flex" }
-                      : { display: "none" }
-                  }
-                >
-                  <a href="./account/profile">
-                    <li className="-help">
-                      <i className="lar la-user"></i>
-                      My Profile
-                    </li>
-                  </a>
-                  <a href="./cart">
-                    <li className="-help">
-                      <i className="las la-shopping-cart"></i>
-                      My Cart
-                    </li>
-                  </a>
-                  <a href="./account/orders">
-                    <li className="-help">
-                      <i className="las la-gift"></i>
-                      My Orders
-                    </li>
-                  </a>
-                  <a href="./account/edit">
-                    <li className="-help">
-                      <i className="las la-user-edit"></i>
-                      Edit Profile
-                    </li>
-                  </a>
-                  <li className="-help">
-                    <button className="-a-btn -lg" style={{ width: "100%" }}>
-                      <i className="las la-sign-out-alt"></i>
-                      Log Out
-                    </button>
-                  </li>
-                </ul>
+                <Link to="/help">
+                  <button className="-dropdown">
+                    <Help fontSize="small" />
+                    <span>Help</span>
+                  </button>
+                </Link>
               </div>
               <div className="hdr-user-account">
-                <button
-                  className="-dropdown"
-                  onFocus={() => {
-                    setState({
-                      ...state,
-                      userDropDownActive: true,
-                    });
-                  }}
-                  onBlur={() => {
-                    setState({
-                      ...state,
-                      userDropDownActive: false,
-                    });
-                  }}
-                >
-                  <User />
-                  <span>Account</span>
-                  {state.userDropDownActive ? (
-                    <ExpandUpIcon />
-                  ) : (
-                    <ExpandDownIcon />
-                  )}
-                </button>
-                <ul
-                  className="-help-list -acc-l"
-                  style={
-                    state.userDropDownActive
-                      ? { display: "flex" }
-                      : { display: "none" }
-                  }
-                >
-                  <a href="./account/profile">
-                    <li className="-help">
-                      <i className="lar la-user"></i>
-                      My Profile
-                    </li>
-                  </a>
-                  <a href="./cart">
-                    <li className="-help">
-                      <i className="las la-shopping-cart"></i>
-                      My Cart
-                    </li>
-                  </a>
-                  <a href="./account/orders">
-                    <li className="-help">
-                      <i className="las la-gift"></i>
-                      My Orders
-                    </li>
-                  </a>
-                  <a href="./account/edit">
-                    <li className="-help">
-                      <i className="las la-user-edit"></i>
-                      Edit Profile
-                    </li>
-                  </a>
-                  <li className="-help">
-                    <button className="-a-btn -lg" style={{ width: "100%" }}>
-                      <i className="las la-sign-out-alt"></i>
-                      Log Out
-                    </button>
-                  </li>
-                </ul>
+                <Link to="/user/profile">
+                  <button className="-dropdown">
+                    <User />
+                    <span>Account</span>
+                  </button>
+                </Link>
               </div>
               <div className="hdr-user-cart">
                 <Link to="/cart">
