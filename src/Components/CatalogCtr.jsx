@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Base64 } from "js-base64";
+import user from "../app.config";
 
 //api
 import FormsApi from "../api/api";
@@ -11,7 +13,6 @@ import "../Design/CatalogCtr.css";
 import Welcome_Shoes from "../assets/airmax.jpg";
 
 export default ({ products }) => {
-  console.log(products);
   return (
     <div className="main-CatalogCtr">
       <div className="sort-CatalogCtr -b-x">
@@ -57,27 +58,27 @@ export default ({ products }) => {
             <ul className="sort-list">
               <li className="input-field">
                 <input type="radio" name="_discount" id="" value="1" />
-                <label for="discount"> &lt; 10%</label>
+                <label htmlFor="discount"> &lt; 10%</label>
               </li>
               <li className="input-field">
                 <input type="radio" name="_discount" id="" value="2" />
-                <label for="discount">10% - 20%</label>
+                <label htmlFor="discount">10% - 20%</label>
               </li>
               <li className="input-field">
                 <input type="radio" name="_discount" id="" value="3" />
-                <label for="discount">20% - 30%</label>
+                <label htmlFor="discount">20% - 30%</label>
               </li>
               <li className="input-field">
                 <input type="radio" name="_discount" id="" value="4" />
-                <label for="discount">30% - 40%</label>
+                <label htmlFor="discount">30% - 40%</label>
               </li>
               <li className="input-field">
                 <input type="radio" name="_discount" id="" value="5" />
-                <label for="discount">40% - 50%</label>
+                <label htmlFor="discount">40% - 50%</label>
               </li>
               <li className="input-field">
                 <input type="radio" name="_discount" id="" value="6" />
-                <label for="discount"> &gt; 50%</label>
+                <label htmlFor="discount"> &gt; 50%</label>
               </li>
             </ul>
             <button className="sort-btn" type="submit">
@@ -92,6 +93,7 @@ export default ({ products }) => {
           <span>Manage</span>
         </div>
         <div className="-b-x">
+          {products.length === 0 && <div>No Products return</div>}
           {products.map((v, i) => {
             return (
               <div key={i} className="pdt-CatalogCtr">
@@ -106,46 +108,19 @@ export default ({ products }) => {
 };
 
 const Product = ({ product }) => {
+  if (user !== null) {
+  } else {
+  }
+  // const data = Base64.encode(JSON.stringify(res.user));
+  // localStorage.setItem("token", data);
+
+  let cart = [];
+
   /**
    * Hooks
    */
   const navigate = useNavigate();
-  const [state, setState] = useState({ images: [] });
-  useEffect(() => {
-    fetchProductImages();
-  }, []);
-  /**
-   * Hooks
-   */
-
-  /**
-   *
-   * functions loading product and product data(images)
-   */
-  const fetchProductImages = async () => {
-    let images = product.product_images
-      ? JSON.parse(product.product_images)
-      : [];
-    let api = new FormsApi();
-    images.forEach(async (v) => {
-      let res = await api.getImage(`/product/image/${v}`);
-      if (res !== "Error") {
-        setState({
-          state,
-          images: [state.images, URL.createObjectURL(res)],
-        });
-      }
-    });
-  };
-  /**
-   *
-   * functions loading product and product data
-   */
-  /**
-   *
-   * functions using product data
-   */
-
+  const [state, setState] = useState({});
   return (
     <>
       <div className="pdt-CatalogCtr-discount">25%</div>
@@ -163,13 +138,7 @@ const Product = ({ product }) => {
         {product.product_discount ? product.product_discount : ""}
       </div>
       <div className="pdt-CatalogCtr-btn-ctr">
-        <button
-          onClick={() => {
-            navigate(`/item/${product.id}`);
-          }}
-        >
-          Add to Cart
-        </button>
+        <button onClick={() => {}}>Add to Cart</button>
       </div>
     </>
   );

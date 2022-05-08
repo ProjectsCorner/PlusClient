@@ -33,10 +33,10 @@ class Cart extends Component {
               </div>
               <div>
                 {[1, 2].map((v, i) => (
-                  <CartItem />
+                  <CartItem key={i} />
                 ))}
                 {[1, 2, 3].map((v, i) => (
-                  <CartItemFixedSize />
+                  <CartItemFixedSize key={i} />
                 ))}
               </div>
               <div>

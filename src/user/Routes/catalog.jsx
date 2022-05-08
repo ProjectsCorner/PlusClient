@@ -1,43 +1,51 @@
-import React, { Component } from "react";
+import react, { useEffect, useState } from "react";
 
-//components
+/**
+ *
+ * Components
+ */
 import MainHeader from "../../Components/MainHeader";
 import MainFooter from "../../Components/MainFooter";
 import CatalogCtr from "../../Components/CatalogCtr";
 import Products from "../../Components/products_scroll";
 
-//styles
-import "../Design/home.css";
+/**
+ * api
+ */
 import FormsApi from "../../api/api";
 
-class Catalog extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { products: [] };
-  }
-  search = async (i) => {
-    let api = new FormsApi();
-    let res = await api.get(`/product/search/${i}`);
-    // console.log(res);
-    if (res !== "Error") this.setState({ ...this.state, products: res });
-  };
-  render() {
-    const searchParams = new URLSearchParams(window.location.search);
-    this.search(searchParams.get("q"));
-    return (
-      <>
-        <MainHeader />
-        <main className="width-auto">
-          <div style={{ width: "100%" }}>
-            <CatalogCtr products={this.state.products} />
-          </div>
-          <Products />
-        </main>
+/**
+ * Styling
+ */
+import "../Design/home.css";
 
-        <MainFooter />
-      </>
+const Catalog = () => {
+  /**
+   * Hooks
+   */
+  const [state, setState] = useState({ products: [] });
+
+  useEffect(async () => {
+    const searchParams = new URLSearchParams(window.location.search);
+    let res = await new FormsApi().get(
+      `/product/search/${searchParams.get("q")}`
     );
-  }
-}
+    console.log(res);
+    if (res !== "Error") setState({ ...state, products: res });
+  }, []);
+
+  return (
+    <>
+      <MainHeader />
+      <main className="width-auto">
+        <div style={{ width: "100%" }}>
+          <CatalogCtr products={state.products} />
+        </div>
+        <Products />
+      </main>
+      <MainFooter />
+    </>
+  );
+};
 
 export default Catalog;

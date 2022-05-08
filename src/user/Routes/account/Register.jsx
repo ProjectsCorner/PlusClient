@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Base64 } from "js-base64";
 import { Link, useNavigate } from "react-router-dom";
+import user from "../../../app.config";
 
 //components
 import MainHeader from "../../../Components/MainHeader";
@@ -27,12 +28,14 @@ import {
 import FormsApi from "../../../api/api";
 
 export default function Register() {
+  const nav = useNavigate();
+
   //we gonna use useReducer here 😋😋😋 with validation of phone number
   const [apiFeedBackError, setApiFeedBackError] = useState(false);
+  const [samePassword, setSamePassword] = useState(true);
   const [apiPhoneUsed, setApiPhoneUsed] = useState(false);
   const [termsCheckBox, setTermsCheckBox] = useState(false);
   const [submit, setSubmit] = useState(false);
-  const nav = useNavigate();
 
   useEffect(() => {
     document.body.style.backgroundColor = "#fff";
@@ -46,8 +49,14 @@ export default function Register() {
     fd.forEach((value, key) => {
       _fcontent[key] = value;
     });
+    if (_fcontent.repeat_password !== _fcontent.password) {
+      setSamePassword(false);
+      setApiFeedBackError(true);
+      setSubmit(false);
+      return;
+    }
     let api = new FormsApi();
-    let res = await api.post("/seller/new", _fcontent);
+    let res = await api.post("/user/new", _fcontent);
     if (res === "Error") {
       setApiFeedBackError(true);
       setSubmit(false);
@@ -64,15 +73,19 @@ export default function Register() {
         return;
       }
     } else {
-      const data = Base64.encode(
-        JSON.stringify({ ...res.user, role: res.role })
-      );
-      sessionStorage.setItem("token", data);
+      const data = Base64.encode(JSON.stringify({ ...res.result }));
+      localStorage.setItem("token", data);
       setSubmit(false);
-      window.location.href = "/";
+      nav("/user/profile");
     }
   };
+  useEffect(() => {
+    if (user) {
+      nav("/user/profile");
+    }
+  }, []);
 
+  if (user) return <MainHeader />;
   return (
     <>
       <MainHeader />
@@ -131,14 +144,17 @@ export default function Register() {
                 <div className="register-inputs-ctr-divided">
                   <TextField
                     label="Phone Number"
-                    name="phone_number"
+                    name="phone"
                     variant="outlined"
                     color="primary"
                     style={{ width: "48%" }}
+                    helperText={
+                      apiPhoneUsed ? "Phone Number already in use" : ""
+                    }
                   />
                   <TextField
                     label="Email Address"
-                    name="email_address"
+                    name="email"
                     variant="outlined"
                     color="primary"
                     style={{ width: "48%" }}
@@ -163,14 +179,22 @@ export default function Register() {
                     variant="outlined"
                     color="primary"
                     style={{ width: "48%" }}
+                    helperText={samePassword ? "" : "Passwords Don't Match"}
+                    error={!samePassword}
                   />
                   <TextField
                     label="Repeat Password"
                     name="repeat_password"
+                    type="password"
                     variant="outlined"
                     color="primary"
                     style={{ width: "48%" }}
-                    helperText="Making sure, you dont go wrong"
+                    helperText={
+                      samePassword
+                        ? "Making sure, you dont go wrong"
+                        : "Passwords Don't Match"
+                    }
+                    error={!samePassword}
                   />
                 </div>
                 <div>
@@ -212,6 +236,20 @@ export default function Register() {
                       ? "Something Went Wrong, Try again"
                       : "Submit"}
                   </Button>
+                </div>
+                <div style={{ width: "100%", marginBlock: "10px" }}>
+                  Already having an account?
+                  <Link to="/user/login">
+                    <span
+                      style={{
+                        textDecoration: "underline",
+                        color: "blue",
+                        marginLeft: "5px",
+                      }}
+                    >
+                      Sign in here
+                    </span>
+                  </Link>
                 </div>
               </form>
             </div>

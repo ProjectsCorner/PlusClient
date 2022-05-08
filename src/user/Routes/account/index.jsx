@@ -3,7 +3,9 @@
  * imports for react  and react-dom
  */
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import user from "../../../app.config";
+import logout from "./login";
 
 /**
  *
@@ -31,12 +33,14 @@ import { TextField } from "@material-ui/core";
 export default () => {
   const params = useParams();
 
-  // const [state, setState] = useState({ page: "" });
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!user) {
+      navigate("/user/login");
+    }
+  }, []);
 
-  // useEffect(() => {
-  //   setState({ ...state, page: params.page });
-  // }, []);
-
+  if (!user) return <MainHeader />;
   return (
     <>
       <MainHeader />
@@ -86,7 +90,18 @@ export default () => {
                 <Person />
                 <span> Edit Profile</span>
               </Link>
-              <span className="user-link -b-x">
+              <span
+                className="user-link -b-x"
+                onClick={() => {
+                  const token_stored = localStorage.getItem("token");
+                  if (token_stored) {
+                    localStorage.removeItem("token");
+                  } else {
+                    sessionStorage.removeItem("token");
+                  }
+                  window.location.replace("/");
+                }}
+              >
                 <span>Log Out</span>
                 <ChevronRight />
               </span>
@@ -102,7 +117,7 @@ export default () => {
                 ? "Orders Pending"
                 : params.page === "edit"
                 ? "Update Profile"
-                : "Content Header"}
+                : "No Content for this"}
             </div>
             <div className="user-content-ctr">
               {params.page === "profile" ? (
@@ -114,7 +129,7 @@ export default () => {
               ) : params.page === "edit" ? (
                 <EditProfile />
               ) : (
-                <div>....</div>
+                <div> &nbsp; &nbsp; .... &nbsp; &nbsp;</div>
               )}
             </div>
           </div>
@@ -138,22 +153,22 @@ const Profile = () => {
         <div>Your basic Info</div>
         <div>
           <div>Your name</div>
-          <div>Xamuel Joshua</div>
+          <div>{user.user_name}</div>
         </div>
         <div>
           <div>Date of birth</div>
-          <div>not indicated</div>
+          <div>{user.user_dob}</div>
         </div>
       </div>
       <div>
         <div>Contact</div>
         <div>
           <div>Phone Number</div>
-          <div>Xamuel Joshua</div>
+          <div>{user.user_phone}</div>
         </div>
         <div>
           <div>Email</div>
-          <div>not indicated</div>
+          <div>{user.user_email}</div>
         </div>
       </div>
     </div>

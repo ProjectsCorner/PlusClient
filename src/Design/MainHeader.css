@@ -12,6 +12,12 @@ header {
   width: 72%;
   margin: 0px auto;
 }
+
+.react-nav-loader {
+  height: 3px;
+  background-color: #ffbb00;
+}
+
 .hdr-nav-ctr {
   z-index: 20;
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
@@ -109,8 +115,10 @@ header {
 .hdr-user-cart > a > span {
   margin-left: 8px;
 }
-.hdr-user > div:hover {
-  color: #ffbb00;
+.hdr-user-help:hover,
+.hdr-user-account:hover,
+.hdr-user-cart a:hover {
+  color: #ffbb00 !important;
   cursor: pointer;
 }
 /*user actions in the nav*/

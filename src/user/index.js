@@ -6,8 +6,8 @@
  *
  */
 
-import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React, { useEffect } from "react";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 
 /**
  *
@@ -44,6 +44,7 @@ import Help from "./Routes/help";
 function User() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="category/:id" element={<Category />} />
@@ -61,3 +62,13 @@ function User() {
 }
 
 export default User;
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}

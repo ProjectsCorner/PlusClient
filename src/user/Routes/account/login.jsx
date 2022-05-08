@@ -1,7 +1,8 @@
 //dependences
 import React, { useState, useEffect } from "react";
 import { Base64 } from "js-base64";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import user from "../../../app.config";
 
 //components
 import MainHeader from "../../../Components/MainHeader";
@@ -27,6 +28,12 @@ import {
 import FormsApi from "../../../api/api";
 
 export default function Login() {
+  const nav = useNavigate();
+  useEffect(() => {
+    if (user) {
+      nav("/user/profile");
+    }
+  });
   //state
   const [rememberMe, setRememberMe] = useState(true);
   const [apiFeedBackError, setApiFeedBackError] = useState(false);
@@ -52,23 +59,20 @@ export default function Login() {
       setApiFeedBackError(true);
       setSubmit(false);
     } else {
-      if (_fcontent.rem_me === "true") {
-        const data = Base64.encode(JSON.stringify(res));
+      if (rememberMe) {
+        const data = Base64.encode(JSON.stringify(res.user));
         localStorage.setItem("token", data);
         setSubmit(false);
-        window.location.reload();
       } else {
-        const data = Base64.encode(JSON.stringify(res));
+        const data = Base64.encode(JSON.stringify(res.user));
         sessionStorage.setItem("token", data);
         setSubmit(false);
-        window.location.reload();
       }
+      window.location.reload();
     }
   };
 
-  useEffect(() => {
-    document.body.style.backgroundColor = "#fff";
-  }, []);
+  if (user) return <MainHeader />;
 
   return (
     <>
@@ -101,11 +105,11 @@ export default function Login() {
                   error={apiFeedBackError}
                   helperText={
                     apiFeedBackError
-                      ? "Wrong Email or Phone or some network error"
-                      : "Fill in your Email or Phone number"
+                      ? "Wrong Phone or some network error"
+                      : "Fill in your Phone number"
                   }
                   variant="outlined"
-                  label="Email OR Phone"
+                  label="Phone Number"
                   type="text"
                   name="id"
                   fullWidth
@@ -181,14 +185,4 @@ export default function Login() {
       <MainFooter />
     </>
   );
-}
-
-export function Logout() {
-  const token_stored = localStorage.getItem("token");
-  if (token_stored) {
-    localStorage.removeItem("token");
-  } else {
-    sessionStorage.removeItem("token");
-  }
-  window.location.replace("/");
 }
