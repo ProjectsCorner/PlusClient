@@ -2,7 +2,8 @@
  *
  * react imports
  */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Base64 } from "js-base64";
 import { Link, useNavigate } from "react-router-dom";
 import user_ from "../app.config";
 
@@ -35,6 +36,7 @@ export default () => {
     helpDropDownActive: false,
     userDropDownActive: false,
     sideNav: false,
+    cart_number: null,
   });
 
   /**
@@ -46,6 +48,23 @@ export default () => {
     const searchValue = new FormData(e.target).get("search");
     navigate(`/catalog?q=${searchValue}`);
   };
+
+  useEffect(() => {
+    let cart = localStorage.getItem("cart_id")
+      ? JSON.parse(Base64.decode(localStorage.getItem("cart_id")))
+      : [];
+    if (cart.length === 0) {
+      setState({
+        ...state,
+        cart_number: 0,
+      });
+    } else {
+      setState({
+        ...state,
+        cart_number: 1,
+      });
+    }
+  }, []);
 
   return (
     <>
@@ -457,7 +476,25 @@ export default () => {
               </div>
               <div className="hdr-user-cart">
                 <Link to="/cart">
-                  <Cart />
+                  <span style={{ position: "relative" }}>
+                    <Cart />
+                    <span
+                      style={{
+                        position: "absolute",
+                        backgroundColor: "#ffbb00",
+                        top: "-7px",
+                        color: "#fff",
+                        left: "15px",
+                        height: "17px",
+                        width: "17px",
+                        textAlign: "center",
+                        fontSize: "14px",
+                        borderRadius: "50%",
+                      }}
+                    >
+                      {state.cart_number}
+                    </span>
+                  </span>
                   <span>Cart</span>
                 </Link>
               </div>

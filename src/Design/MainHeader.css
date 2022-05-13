@@ -106,6 +106,14 @@ header {
   display: flex;
   justify-content: right;
   align-items: center;
+  position: relative;
+}
+.hdr-user-cart .hdr_cart_number {
+  top: -5px;
+  left: 20px;
+  position: absolute;
+  background-color: #ffbb00;
+  color: #fff;
 }
 .hdr-user-cart > a {
   display: flex;

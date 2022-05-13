@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = "http://localhost:8000/api";
+const url = "http://192.168.31.70:8000/api";
 
 export default class FormsApi {
   //post requests
@@ -35,11 +35,9 @@ export default class FormsApi {
       return "Error";
     }
   }
-  async getImage(i) {
+  async put(i, data) {
     try {
-      const res = await axios.get(`${url}${i}`, {
-        responseType: "blob",
-      });
+      const res = await axios.put(`${url}${i}`, data);
       return res.data;
     } catch (error) {
       console.log(error);

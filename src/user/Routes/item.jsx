@@ -3,7 +3,6 @@ import React, { Component } from "react";
 //components
 import MainHeader from "../../Components/MainHeader";
 import MainFooter from "../../Components/MainFooter";
-import Products from "../../Components/products_scroll";
 
 //design
 import "../Design/home.css";
@@ -101,15 +100,6 @@ class Item extends Component {
               </ul>
             </div>
           </div>
-        </section>
-        <section className="products-scroll-ctr">
-          <Products />
-        </section>
-        <section className="products-scroll-ctr">
-          <Products />
-        </section>
-        <section className="products-scroll-ctr">
-          <Products />
         </section>
         <MainFooter />
       </>

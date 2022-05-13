@@ -25,13 +25,18 @@ const Catalog = () => {
    */
   const [state, setState] = useState({ products: [] });
 
+  const searchParams = new URLSearchParams(window.location.search);
   useEffect(async () => {
-    const searchParams = new URLSearchParams(window.location.search);
     let res = await new FormsApi().get(
       `/product/search/${searchParams.get("q")}`
     );
-    console.log(res);
-    if (res !== "Error") setState({ ...state, products: res });
+    if (res !== "Error") {
+      if (res.status === false) {
+        setState({ ...state, products: [] });
+      } else {
+        setState({ ...state, products: res });
+      }
+    }
   }, []);
 
   return (
@@ -39,7 +44,7 @@ const Catalog = () => {
       <MainHeader />
       <main className="width-auto">
         <div style={{ width: "100%" }}>
-          <CatalogCtr products={state.products} />
+          <CatalogCtr products={state.products} title={searchParams.get("q")} />
         </div>
         <Products />
       </main>

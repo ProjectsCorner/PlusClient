@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Base64 } from "js-base64";
 
 //components
 import MainHeader from "../../Components/MainHeader";
@@ -12,8 +13,17 @@ import "../Design/cart.css";
 class Cart extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { cart: [] };
   }
+  componentDidMount = () => {
+    this.setState({
+      ...this.state,
+      cart: localStorage.getItem("cart_id")
+        ? JSON.parse(Base64.decode(localStorage.getItem("cart_id")))
+        : [],
+    });
+  };
+
   render() {
     return (
       <>
@@ -32,12 +42,20 @@ class Cart extends Component {
                 <div>Total Amount</div>
               </div>
               <div>
-                {[1, 2].map((v, i) => (
-                  <CartItem key={i} />
-                ))}
-                {[1, 2, 3].map((v, i) => (
-                  <CartItemFixedSize key={i} />
-                ))}
+                {this.state.cart.length === 0 ? (
+                  <div>Ooops!! Cart Is Empty</div>
+                ) : (
+                  this.state.cart.map((el, i) => {
+                    return <CartItem key={i} product={el} />;
+                  })
+                )}
+                {this.state.cart.length === 0 ? (
+                  <div>Ooops!! Cart Is Empty</div>
+                ) : (
+                  this.state.cart.map((el, i) => {
+                    return <CartItemFixedSize key={i} product={el} />;
+                  })
+                )}
               </div>
               <div>
                 <div></div>
