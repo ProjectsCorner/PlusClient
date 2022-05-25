@@ -1,30 +1,110 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import user from "../../../app.config";
+import { Base64 } from "js-base64";
+import { Link, useNavigate } from "react-router-dom";
+
+/**
+ * Components
+ */
+
+import FormsApi from "../../../api/api";
 
 //styles
 import "../../Design/home.css";
 import "../../Design/checkout.css";
 
 //material
-import { QuestionAnswerOutlined } from "@material-ui/icons";
+import { QuestionAnswerOutlined, Phone } from "@material-ui/icons";
+import { TextField } from "@material-ui/core";
+import { Autocomplete, Alert as MuiAlert } from "@material-ui/lab";
+
+/**
+ *
+ * assests
+ */
+import LOGO from "../../../assets/logos/plus_logo_color.png";
+import MM from "../../../assets/mm.png";
 
 export default function CheckOut() {
+  /**
+   * Hooks
+   */
+  const navigate = useNavigate();
+  const [state, setState] = useState({
+    show_order_details: true,
+    show_payment: false,
+    total_amount: 0,
+    total_shipping_fee: 0,
+    order_details: {},
+  });
+
+  const setTotals = (totals) => {
+    setState({
+      ...state,
+      total_amount: totals.total_amount,
+      total_shipping_fee: totals.total_shipping_fee,
+    });
+  };
+
+  const cart = localStorage.getItem("cart_id")
+    ? JSON.parse(Base64.decode(localStorage.getItem("cart_id")))
+    : [];
+
+  useEffect(() => {
+    (async () => {})();
+
+    if (!user) {
+      navigate("/user/login");
+    }
+  }, []);
+
+  const make_order = (e) => {
+    e.preventDefault();
+    setState({
+      ...state,
+      making_order: true,
+    });
+    let api = new FormsApi();
+    let res = api.post("/orders/new", {
+      ...state.order_details,
+      items_ordered: JSON.stringify(cart),
+      order_date: Date.now(),
+    });
+    if (res !== "Error" && res.status !== false) {
+      setTimeout(() => {
+        setState({ ...state, making_order: false });
+        if (state.order_details.payment_method === "cod") {
+          navigate("/order/finish");
+        } else {
+          navigate("/order/payment");
+        }
+      }, 2000);
+    }
+  };
+
   return (
     <>
       <div className="nav">
         <div className="search-nav">
           <div className="logo">
-            <img src="https://picsum.photos/50" alt="YAMMIE" id="logo" />
+            <img src={LOGO} alt="PLUSSHOPPING" height="50px" />
           </div>
           <div className="order-f">
             <b>Process Your Order: </b>
           </div>
           <div className="-account -user focus">
-            <span style={{ marginRight: "20px" }}>
+            <span
+              style={{
+                marginRight: "20px",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
               <QuestionAnswerOutlined />
               Help Center
             </span>
-            <span>
-              <QuestionAnswerOutlined />
+            <span style={{ display: "flex", alignItems: "center" }}>
+              <Phone />
               Call Us
             </span>
           </div>
@@ -42,132 +122,112 @@ export default function CheckOut() {
                 <div className="s-1-head">
                   <span>
                     <i className="fas fa-check-circle -s-i-1"></i>
-                    <b>Your Current Address</b>
+                    <b>Your Personal Info.</b>
                   </span>
-                  <b className="edit edit-a-b">Edit</b>
+                  <Link to="/user/edit">
+                    <b className="edit edit-a-b">Edit</b>
+                  </Link>
                 </div>
-                <div className="_ca">
-                  <b>
-                    <div className="_cn _cad _cn">
-                      <i className="fas fa-spinner fa-spin"></i>
+                <div className="user-data-ctr">
+                  <div>
+                    <div>Contact Information</div>
+                    <div>
+                      <div>Phone Number</div>
+                      <div>{user.user_phone}</div>
                     </div>
-                  </b>
-                  <div className="_cr _cad _1a"></div>
-                  <div className="_cz _cad _cmz"></div>
-                  <div className="_cz _cad _cmn"></div>
+                    <div>
+                      <div>Email</div>
+                      <div>{user.user_email}</div>
+                    </div>
+                  </div>
+                  <div>
+                    <div>Your basic Info</div>
+                    <div>
+                      <div>Your name</div>
+                      <div>{user.user_name}</div>
+                    </div>
+                  </div>
                 </div>
-                <form className="_ca _dn _ea" style={{ display: "none" }}>
-                  <div className="_cad">
-                    <h4 style={{ margin: "10px 0px" }}>
-                      Add/Change Your Address
-                    </h4>
-                    <label htmlFor="">Type</label>
-                    <br />
-                    <select
-                      name=""
-                      id="type"
-                      required
-                      className="-is type"
-                      style={{ width: "250px" }}
-                    >
-                      <option value="" hidden>
-                        Select Type
-                      </option>
-                      <option value="Primary">Primary Address</option>
-                      <option value="guest">Guest Address</option>
-                    </select>
-                  </div>
-                  <div className="_cad">
-                    <label htmlFor="">Location/Residence</label>
-                    <br />
-                    <select
-                      name=""
-                      id="location"
-                      className="-is ca select"
-                      style={{ width: "250px" }}
-                    >
-                      <option value="" hidden>
-                        Select Your Residence
-                      </option>
-                    </select>
-                  </div>
-                  <div className="_cad">
-                    <label htmlFor="">Your Zone</label>
-                    <br />
-                    <input
-                      placeholder="Zone"
-                      type="text"
-                      name=""
-                      id="zone"
-                      className="-is cz"
-                      style={{ width: "250px" }}
-                      readOnly
-                    />
-                  </div>
-                  <div className="_cad other_dn">
-                    <label htmlFor="other-a">Other:</label>
-                    <input
-                      type="text"
-                      name=""
-                      id="other"
-                      placeholder="(Specify)"
-                    />
-                  </div>
-                  <button className="_ca-btn">Ok</button>
-                </form>
               </div>
               <div className="p-order-s-1">
                 <div className="s-1-head">
                   <span>
-                    <i className="fas fa-check-circle -s-i-2"></i>
-                    <b>Delivery Method</b>
+                    <i className="fas fa-check-circle -s-i-1"></i>
+                    <b>Pick up Station</b>
                   </span>
-                  <span className="-edit-d edit"> Edit </span>
                 </div>
                 <div
                   className="_ca _dm-r p-order-address deliver"
                   style={{ display: "none" }}
                 ></div>
-                <form className="p-order-address deliver _ca _dm" id="-df">
-                  <b>Select Your Preferred Delivery Method</b>
-                  <div className="p-order-name">
-                    <input
-                      required
-                      type="radio"
-                      name="d-method"
-                      id="-d1"
-                      value="Door-Step"
-                    />
-                    <b className="-d-method">Door Step Delivery</b>
+                <form
+                  className="p-order-address deliver _ca _dm"
+                  id="-df"
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    let form_data = new FormData(e.target);
+                    let order_details = {};
+                    form_data.forEach((el, i) => {
+                      order_details[i] = el;
+                    });
+                    setState({
+                      ...state,
+                      order_details,
+                      show_payment: true,
+                    });
+                  }}
+                >
+                  <b>Location &amp; Preferred Pick Up Station</b>
+
+                  <div>
+                    <div style={{ margin: 20 }}>
+                      <Autocomplete
+                        filterSelectedOptions
+                        style={{
+                          width: "70%",
+                        }}
+                        disablePortal
+                        id="tags-standard"
+                        options={["Lira University"]}
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            label="Select Your Location"
+                            variant="outlined"
+                            color="secondary"
+                            name="location"
+                            required
+                          />
+                        )}
+                      />
+                    </div>
+                    <div style={{ margin: 20 }}>
+                      <Autocomplete
+                        filterSelectedOptions
+                        style={{
+                          width: "70%",
+                        }}
+                        disablePortal
+                        id="tags-standard"
+                        options={["Aggie's Saloon", "Amazing Grace Canteen"]}
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            label="Select A Pick up Station"
+                            variant="outlined"
+                            color="secondary"
+                            name="pick_station"
+                            required
+                          />
+                        )}
+                      />
+                    </div>
                   </div>
-                  <div className="p-order-residence">
-                    We Reach At Your Residence.
-                  </div>
-                  <div className="p-order-residence">
-                    Delivered By:
-                    <span className="d-fees">Yammie Delivery</span>
-                  </div>
-                  <div className="p-order-name">
-                    <input
-                      required
-                      type="radio"
-                      name="d-method"
-                      id="-d2"
-                      value="Pick-Up"
-                    />
-                    <b className="-d-method">Free Pick Up</b>
-                  </div>
-                  <div className="p-order-residence">
-                    Get your items at the Yammie Store
-                  </div>
-                  <div className="p-order-residence">
-                    Location:
-                    <span className="d-fees">Next to Yammie SuperMarket</span>
-                  </div>
+
                   <div className="_u">
                     <b>Is your Order Urgent</b>
                     <div className="p-order-name">
-                      <input type="checkbox" name="d-u" id="-ug" value="-u" />
+                      <input type="checkbox" name="urgent" value="true" />
                       <span className="-d-u">Yes</span>
                     </div>
                   </div>
@@ -183,94 +243,133 @@ export default function CheckOut() {
                     <b>Payment Details</b>
                   </span>
                 </div>
-                <div
-                  className="p-order-address payment _ca"
-                  style={{ display: "none" }}
-                >
-                  <div className="p-order-name">
-                    <b>Select Your Preferred Payment Method</b>
-                  </div>
-                  <form id="pay-form" className="_pf">
-                    <div className="mm-input -disabled">
-                      <input
-                        required
-                        type="radio"
-                        name="payment_method"
-                        id="payment_method_mm"
-                        value="mm"
-                      />
-                      <label
-                        htmlFor="payment_method"
-                        className="-mm-l -disabled"
+                {state.show_payment && (
+                  <div className="p-order-address payment _ca">
+                    <div className="p-order-name">
+                      <b>Select Your Preferred Payment Method</b>
+                    </div>
+                    <form id="pay-form" className="_pf" onSubmit={make_order}>
+                      <div className="mm-input">
+                        <input
+                          required
+                          type="radio"
+                          name="payment_method"
+                          id="payment_method_mm"
+                          value="mm"
+                          onChange={() => {
+                            setState({
+                              ...state,
+                              order_details: {
+                                ...state.order_details,
+                                payment_method: "mm",
+                              },
+                            });
+                          }}
+                        />
+                        <label htmlFor="payment_method" className="-mm-l">
+                          <b>Mobile Money</b>
+                        </label>
+                      </div>
+
+                      <div className="p-order-procedure">
+                        <b>Mobile Money Payment Procedure:</b>
+                        <ol>
+                          <li>Click 'Finish Your Order'</li>
+                          <li>Fill In Details On The Next Page</li>
+                          <li>Click 'Pay Now'</li>
+                          <li>Check your phone for payment request</li>
+                          <li>Enter your PIN And Approve</li>
+                          <li>
+                            You will receive SMS/Email confirming a successful
+                            payment.
+                          </li>
+                        </ol>
+                      </div>
+                      <div
+                        className="mm-input"
+                        style={
+                          state.total_amount > 20000
+                            ? { opacity: "0.5", pointerEvents: "none" }
+                            : {}
+                        }
                       >
-                        <b>Mobile Money</b> - MTN (Disabled for a moment...)
-                      </label>
-                    </div>
-                    <div className="-mm-img -disabled">
-                      <img src="https://picsum.photos/50" alt="" />
-                    </div>
-                    <div className="p-order-procedure -disabled">
-                      <b>Mobile Money Payment Procedure:</b>
-                      <ol>
-                        <li>Click 'Finish Your Order'</li>
-                        <li>Fill In Details On The Next Page</li>
-                        <li>Click 'Pay Now'</li>
-                        <li>Check your phone for payment request</li>
-                        <li>Enter your PIN And Approve</li>
-                        <li>
-                          You will receive SMS/Email confirming a successful
-                          payment.
-                        </li>
-                      </ol>
-                    </div>
-                    <div className="mm-input">
-                      <input
-                        required
-                        type="radio"
-                        name="payment_method"
-                        id="payment_method"
-                        value="cod"
-                      />
-                      <span className="cd-image">
-                        <img src="https://picsum.photos/50" alt="" />
-                      </span>
-                      <label htmlFor="payment_method">
-                        <b>Cash On Delivery.</b>
-                      </label>
-                    </div>
-                    <div className="am-t-p">
-                      <div className="sub-total -am">
-                        <span>SUB. TOTAL</span>
-                        <span>
-                          <b>
-                            UGX <span id="pay">...</span>
-                          </b>
-                        </span>
+                        <input
+                          required
+                          type="radio"
+                          name="payment_method"
+                          id="payment_method"
+                          value="cod"
+                          onChange={() => {
+                            setState({
+                              ...state,
+                              order_details: {
+                                ...state.order_details,
+                                payment_method: "cod",
+                              },
+                            });
+                          }}
+                        />
+                        <span className="cd-image"></span>
+                        <label htmlFor="payment_method">
+                          <b>Cash On Delivery.</b>
+                        </label>
                       </div>
-                      <div className="-delivery-fees -am">
-                        <span>
-                          <b>Delivery Fees</b>
-                        </span>
-                        <span>
-                          UGX <span id="delivery">...</span>
-                        </span>
+                      <div className="am-t-p">
+                        <div className="sub-total -am">
+                          <span>SUB. TOTAL</span>
+                          <span>
+                            <b>
+                              <span id="pay">
+                                {`UGX ${
+                                  state.total_amount && state.total_shipping_fee
+                                    ? state.total_amount
+                                    : "..."
+                                }`}
+                              </span>
+                            </b>
+                          </span>
+                        </div>
+                        <div className="-delivery-fees -am">
+                          <span>
+                            <b>Delivery Fees</b>
+                          </span>
+                          <span>
+                            <span id="delivery">
+                              {`UGX ${
+                                state.total_amount && state.total_shipping_fee
+                                  ? state.total_shipping_fee
+                                  : "..."
+                              }`}
+                            </span>
+                          </span>
+                        </div>
+
+                        <div className="total -am">
+                          <span>
+                            <b>TOTAL</b>
+                          </span>
+                          <span>
+                            <b>
+                              <span id="total">
+                                {`UGX ${
+                                  state.total_amount && state.total_shipping_fee
+                                    ? state.total_shipping_fee +
+                                      state.total_amount
+                                    : "..."
+                                }`}
+                              </span>
+                            </b>
+                          </span>
+                        </div>
                       </div>
-                      <div className="total -am">
-                        <span>
-                          <b>TOTAL</b>
-                        </span>
-                        <span>
-                          <b>
-                            UGX <span id="total">...</span>
-                          </b>
-                        </span>
-                      </div>
-                    </div>
-                    <button type="submit" className="-btn-s-pyf">
-                      FINISH YOUR ORDER
-                    </button>
-                  </form>
-                </div>
+                      <button type="submit" className="-btn-s-pyf">
+                        {state.making_order
+                          ? "Processing Order..."
+                          : "Finish Your Order"}
+                      </button>
+                    </form>
+                  </div>
+                )}
               </div>
             </div>
             <div className="-order">
@@ -281,35 +380,79 @@ export default function CheckOut() {
                     <b>Your Order Details</b>
                   </span>
                 </div>
-                <button className="show_order _ca-btn">
-                  Show Order Details
+                <button
+                  className="show_order _ca-btn"
+                  onClick={() => {
+                    setState({
+                      ...state,
+                      show_order_details: !state.show_order_details,
+                    });
+                  }}
+                >
+                  {state.show_order_details
+                    ? "Hide Order Details"
+                    : "Show Order Details"}
                 </button>
-                <div className="-od-ctr">
-                  <div className="items">No items</div>
+
+                <div
+                  className="-od-ctr"
+                  style={{
+                    display: state.show_order_details ? "block" : "none",
+                  }}
+                >
+                  <div className="items">
+                    {cart.length === 0
+                      ? "No items"
+                      : cart.map((el, i) => (
+                          <CartItem
+                            product={el}
+                            key={i}
+                            setTotals={setTotals}
+                          />
+                        ))}
+                  </div>
                   <div className="totals">
                     <div className="sub-total -st">
                       <div className="-st-content">
                         <span>Sub. Total</span>
-                        <span className="_total">UGX ...</span>
+                        <span className="_total">
+                          {`UGX ${
+                            state.total_amount && state.total_shipping_fee
+                              ? state.total_amount
+                              : "..."
+                          }`}
+                        </span>
                       </div>
                     </div>
                     <div className="-st-delivery -st">
                       <div className="-st-content">
-                        <span>Total Shipping Fees</span>
-                        <span className="_shp">UGX ...</span>
+                        <span>Total Delivery Fees</span>
+                        <span className="_shp">
+                          {`UGX ${
+                            state.total_amount && state.total_shipping_fee
+                              ? state.total_shipping_fee
+                              : "..."
+                          }`}
+                        </span>
                       </div>
                     </div>
                     <div className="-st-totals -st">
                       <div className="-st-content -o-total">
                         <span>Total</span>
                         <span className="">
-                          <span className="_ony-tt">UGX ...</span>
+                          <span className="_ony-tt">
+                            {`UGX ${
+                              state.total_amount && state.total_shipping_fee
+                                ? state.total_shipping_fee + state.total_amount
+                                : "..."
+                            }`}
+                          </span>
                         </span>
                       </div>
                     </div>
-                    <a className="-modify" href="../cart">
+                    <Link className="-modify" to="/cart">
                       <button className="_ca-btn -sm">Back To Cart</button>
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -320,3 +463,63 @@ export default function CheckOut() {
     </>
   );
 }
+
+let totals = { total_shipping_fee: 0, total_amount: 0 };
+
+const CartItem = ({ product, setTotals }) => {
+  const [state, setState] = useState({ product: {} });
+  useEffect(() => {
+    (async () => {
+      let pdt = await new FormsApi().get(`/product/${product.product}`);
+      if (pdt !== "Error" && pdt.status !== false) {
+        setState({ ...state, product: pdt.result.product });
+        totals.total_amount +=
+          parseInt(pdt.result.product.product_price) * parseInt(product.qty) ||
+          0;
+        totals.total_shipping_fee += parseInt(
+          pdt.result.product.product_shipping_fee
+        );
+        setTotals(totals);
+      }
+    })();
+    return () => {
+      setState({ product: {} });
+    };
+  }, []);
+
+  let numberFormat = new Intl.NumberFormat();
+
+  return (
+    <div className="_check-item">
+      <div className="img">
+        <div className="">
+          <img
+            src={
+              state.product.product_images
+                ? JSON.parse(state.product.product_images)[0]
+                : "https://picsum.photos/200"
+            }
+            alt={state.product.product_name || "Plus Product"}
+            width="100%"
+            height="100%"
+            style={{ borderRadius: "5px" }}
+          />
+        </div>
+      </div>
+      <div className="-item">
+        <div className="name" style={{ overflow: "hidden" }}>
+          {state.product.product_name || "..."}
+        </div>
+        <div className="price _usp">
+          Price: UGX
+          <span className="item_price">
+            {` ${numberFormat.format(
+              parseInt(state.product.product_price) * parseInt(product.qty) || 0
+            )}`}
+          </span>
+        </div>
+        <div className="qty _usq">Quantity: {product.qty}</div>
+      </div>
+    </div>
+  );
+};

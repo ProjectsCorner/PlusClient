@@ -213,6 +213,11 @@
   box-shadow: 0px 0px 5px rgba(36, 35, 35, 0.1);
 }
 
+.remove_from_cart_button:hover {
+  color: #ffbb00;
+  cursor: pointer;
+}
+
 @media screen and (max-width: 1200px) {
   .cart_main_ctr {
     width: 95%;

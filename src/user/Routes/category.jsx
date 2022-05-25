@@ -1,4 +1,7 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+
+import FormsApi from "../../api/api";
 
 //components
 import MainHeader from "../../Components/MainHeader";
@@ -13,37 +16,64 @@ import "../Design/Category.css";
 //assets
 import BannerImage from "../../assets/airmax.jpg";
 
-class Category extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-  render() {
-    return (
-      <>
-        <MainHeader />
-        <section className="ctg-banner-ctr">
-          <img src={BannerImage} alt="SHOP ON PLUS" />
-        </section>
-        <section className="products-scroll-ctr">
-          <Products />
-        </section>
-        <section className="products-scroll-ctr">
-          <Products />
-        </section>
-        <section className="products-scroll-ctr">
-          <Products />
-        </section>
-        <section className="products-scroll-ctr">
-          <Products />
-        </section>
-        <div className="width-auto">
-          <CatalogCtr />
-        </div>
-        <MainFooter />
-      </>
-    );
-  }
+function Category() {
+  const [state, setState] = useState({
+    sub_categories: [],
+    category: {},
+    category_pdts: [],
+  });
+  let params = useParams();
+
+  useEffect(() => {
+    (async () => {
+      let sub_categories = await new FormsApi().get(
+        `/category/${params.id}/sub_categories`
+      );
+      let category = await new FormsApi().get(`/category/${params.id}`);
+      let category_pdts = await new FormsApi().get(
+        `/product/category/${params.id}`
+      );
+      if (sub_categories !== "Error" && category !== "Error") {
+        setState({
+          ...state,
+          category,
+          sub_categories,
+          category_pdts,
+        });
+      }
+    })();
+  }, []);
+
+  return (
+    <>
+      <MainHeader />
+      <section className="ctg-banner-ctr">
+        <img
+          src={state.category.category_image || BannerImage}
+          alt="SHOP ON PLUS"
+        />
+      </section>
+      {state.sub_categories.length === 0 ? (
+        <></>
+      ) : (
+        state.sub_categories.map((el, i) => {
+          return (
+            <section className="products-scroll-ctr" key={i}>
+              <Products sub_category={el} />
+            </section>
+          );
+        })
+      )}
+
+      <div className="width-auto">
+        <CatalogCtr
+          products={state.category_pdts}
+          title={state.category.category_name}
+        />
+      </div>
+      <MainFooter />
+    </>
+  );
 }
 
 export default Category;

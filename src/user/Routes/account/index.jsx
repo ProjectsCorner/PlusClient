@@ -134,12 +134,6 @@ export default () => {
             </div>
           </div>
         </section>
-        <section className="products-scroll-ctr">
-          <Products />
-        </section>
-        <section className="products-scroll-ctr">
-          <Products />
-        </section>
       </main>
       <MainFooter />
     </>

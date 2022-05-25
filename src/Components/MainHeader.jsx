@@ -59,9 +59,11 @@ export default () => {
         cart_number: 0,
       });
     } else {
+      let cart_number = 0;
+      cart.forEach((el) => parseInt((cart_number += el.qty)));
       setState({
         ...state,
-        cart_number: 1,
+        cart_number,
       });
     }
   }, []);

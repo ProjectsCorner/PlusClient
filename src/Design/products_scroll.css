@@ -112,3 +112,13 @@
     width: 95%;
   }
 }
+
+@media screen and (max-width: 768px) {
+  .-scroll {
+    overflow-x: scroll;
+  }
+  .-sc-n,
+  .-sc-b {
+    display: none !important;
+  }
+}

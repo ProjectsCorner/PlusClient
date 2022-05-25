@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
+import FormsApi from "../api/api";
 
 //components
 import Item from "./products_scroll_item";
@@ -6,10 +7,22 @@ import Item from "./products_scroll_item";
 //the styling...
 import "../Design/products_scroll.css";
 import { Link } from "react-router-dom";
-import { useRef } from "react";
 
-export default function Products(props) {
+export default function Products({ sub_category }) {
+  const [state, setState] = useState({ pdts: [] });
   const scrollBackRef = useRef(null);
+
+  useEffect(() => {
+    (async () => {
+      let pdts = await new FormsApi().get(
+        `/product/sub_category/${sub_category.id}`
+      );
+      if (pdts !== "Error") {
+        setState({ ...state, pdts });
+      }
+    })();
+  });
+
   return (
     <div className="-ct -b-x">
       <button
@@ -37,19 +50,25 @@ export default function Products(props) {
         <i className="las la-chevron-right"></i>
       </button>
       <div className="-ch-all">
-        <span>Recommended For You</span>
-        <span>
+        <span>{sub_category.sub_category_name}</span>
+        <Link
+          to={`/catalog?sbc=${sub_category.id}&title=${sub_category.sub_category_name}`}
+        >
           Check All <i className="las la-chevron-right"></i>
-        </span>
+        </Link>
       </div>
       <div className="-scroll -ct-trending" ref={scrollBackRef}>
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 3, 4, 5].map((v, i) => {
-          return (
-            <Link to="/item/id" key={i}>
-              <Item />
-            </Link>
-          );
-        })}
+        {state.pdts.length === 0 ? (
+          <div>No Products for this Sub Category....</div>
+        ) : (
+          state.pdts.map((v, i) => {
+            return (
+              <Link to={`/item/${v.id}`} key={i}>
+                <Item product={v} />
+              </Link>
+            );
+          })
+        )}
       </div>
     </div>
   );

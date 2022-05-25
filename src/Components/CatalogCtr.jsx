@@ -349,6 +349,10 @@ export default ({ products, title }) => {
 };
 
 const Product = ({ product }) => {
+  /**
+   * Hooks
+   */
+  const navigate = useNavigate();
   const [state, setState] = useState({ adding: false });
 
   const add_to_cart = () => {
@@ -375,16 +379,9 @@ const Product = ({ product }) => {
         ...state,
         adding: false,
       });
-      window.location.reload();
+      navigate(0);
     }, 2000);
   };
-
-  // let cart = [];
-
-  /**
-   * Hooks
-   */
-  const navigate = useNavigate();
 
   let images =
     typeof product.product_images === "string" &&

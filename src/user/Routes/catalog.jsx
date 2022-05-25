@@ -27,9 +27,11 @@ const Catalog = () => {
 
   const searchParams = new URLSearchParams(window.location.search);
   useEffect(async () => {
-    let res = await new FormsApi().get(
-      `/product/search/${searchParams.get("q")}`
-    );
+    let res = searchParams.get("sbc")
+      ? await new FormsApi.get(
+          `/product/sub_category/${searchParams.get("sbc")}`
+        )
+      : await new FormsApi().get(`/product/search/${searchParams.get("q")}`);
     if (res !== "Error") {
       if (res.status === false) {
         setState({ ...state, products: [] });
@@ -44,9 +46,11 @@ const Catalog = () => {
       <MainHeader />
       <main className="width-auto">
         <div style={{ width: "100%" }}>
-          <CatalogCtr products={state.products} title={searchParams.get("q")} />
+          <CatalogCtr
+            products={state.products}
+            title={searchParams.get("q") || searchParams.get("title")}
+          />
         </div>
-        <Products />
       </main>
       <MainFooter />
     </>

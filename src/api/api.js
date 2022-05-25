@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const url = "http://192.168.31.70:8000/api";
+const url = "http://192.168.31.70:8000/api"; //office
+// const url = "http://10.245.3.224:8000/api"; //lab
 
 export default class FormsApi {
   //post requests

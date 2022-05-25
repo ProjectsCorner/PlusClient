@@ -6,19 +6,31 @@ import Banner from "../assets/airmax.jpg";
 // styling
 import "../Design/products_scroll.css";
 
-export default () => {
+export default ({ product }) => {
+  let images =
+    typeof product.product_images === "string" &&
+    JSON.parse(product.product_images)
+      ? JSON.parse(product.product_images)
+      : [];
   return (
     <>
       <div className="-ct-item">
         <div>
-          <img src={Banner} alt="PLUSPROMOTION" />
+          <img
+            src={images.length === 0 ? Banner : images[0]}
+            alt="PLUSPROMOTION"
+          />
         </div>
         <div className="">
           <div className="-ct-item-name">
-            Nike Air - Best Step Shoe from plus with a cheap price
+            <b>{product.product_name}</b> - {product.product_description}
           </div>
-          <div className="-ct-item-price">UGX 500 - UGX 750</div>
-          <div className="-ct-item-price-before">UGX 750</div>
+          <div className="-ct-item-price">{`UGX ${
+            parseInt(product.product_price) - parseInt(product.product_discount)
+          }`}</div>
+          <div className="-ct-item-price-before">
+            {product.product_discount ? `UGX ${product.product_price}` : ""}
+          </div>
         </div>
       </div>
     </>
