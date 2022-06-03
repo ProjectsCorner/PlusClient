@@ -59,8 +59,8 @@ function User() {
         <Route path="user/login" element={<Login />} />
         <Route path="user/new" element={<Register />} />
         <Route path="order/checkout" element={<Checkout />} />
-        <Route path="order/payment" element={<Payment />} />
-        <Route path="order/finish" element={<CashOnDelivery />} />
+        <Route path="order/payment/:id" element={<Payment />} />
+        <Route path="order/finish/:id" element={<CashOnDelivery />} />
         <Route path="help" element={<Help />} />
       </Routes>
     </BrowserRouter>

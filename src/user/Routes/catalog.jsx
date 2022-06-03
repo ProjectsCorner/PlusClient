@@ -28,7 +28,7 @@ const Catalog = () => {
   const searchParams = new URLSearchParams(window.location.search);
   useEffect(async () => {
     let res = searchParams.get("sbc")
-      ? await new FormsApi.get(
+      ? await new FormsApi().get(
           `/product/sub_category/${searchParams.get("sbc")}`
         )
       : await new FormsApi().get(`/product/search/${searchParams.get("q")}`);

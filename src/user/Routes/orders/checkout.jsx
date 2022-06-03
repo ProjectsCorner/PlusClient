@@ -56,27 +56,33 @@ export default function CheckOut() {
     if (!user) {
       navigate("/user/login");
     }
+    if (cart.length === 0) {
+      navigate(-1);
+    }
   }, []);
 
-  const make_order = (e) => {
+  const make_order = async (e) => {
     e.preventDefault();
     setState({
       ...state,
       making_order: true,
     });
     let api = new FormsApi();
-    let res = api.post("/orders/new", {
+    let res = await api.post("/orders/new", {
       ...state.order_details,
       items_ordered: JSON.stringify(cart),
       order_date: Date.now(),
+      user_id: user.id,
     });
+
     if (res !== "Error" && res.status !== false) {
       setTimeout(() => {
         setState({ ...state, making_order: false });
+        localStorage.removeItem("cart_id");
         if (state.order_details.payment_method === "cod") {
-          navigate("/order/finish");
+          navigate(`/order/finish/${res.result.order_number}`);
         } else {
-          navigate("/order/payment");
+          navigate(`/order/payment/${res.result.order_number}`);
         }
       }, 2000);
     }
@@ -178,7 +184,6 @@ export default function CheckOut() {
                   }}
                 >
                   <b>Location &amp; Preferred Pick Up Station</b>
-
                   <div>
                     <div style={{ margin: 20 }}>
                       <Autocomplete
@@ -223,7 +228,6 @@ export default function CheckOut() {
                       />
                     </div>
                   </div>
-
                   <div className="_u">
                     <b>Is your Order Urgent</b>
                     <div className="p-order-name">
@@ -311,8 +315,11 @@ export default function CheckOut() {
                         />
                         <span className="cd-image"></span>
                         <label htmlFor="payment_method">
-                          <b>Cash On Delivery.</b>
+                          <b>Cash On Delivery </b>
                         </label>
+                        {state.total_amount > 20000 && (
+                          <small>...Not available, Amount &gt; 20,000...</small>
+                        )}
                       </div>
                       <div className="am-t-p">
                         <div className="sub-total -am">
@@ -362,7 +369,15 @@ export default function CheckOut() {
                           </span>
                         </div>
                       </div>
-                      <button type="submit" className="-btn-s-pyf">
+                      <button
+                        type="submit"
+                        className="-btn-s-pyf"
+                        style={
+                          state.making_order
+                            ? { opacity: "0.4", pointerEvents: "none" }
+                            : {}
+                        }
+                      >
                         {state.making_order
                           ? "Processing Order..."
                           : "Finish Your Order"}

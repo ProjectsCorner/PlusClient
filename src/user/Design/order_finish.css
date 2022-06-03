@@ -4,6 +4,10 @@
   width: 70vw;
   margin: 2% auto;
 }
+
+.order-nav {
+  height: 50px;
+}
 .-f-order-l {
   margin: 20px;
 }
@@ -65,7 +69,8 @@
 }
 @media screen and (max-width: 500px) {
   .logo {
-    display: none;
+    /* display: none; */
+    /* background-color: red; */
   }
   .search-nav {
     padding: 0px 20px;

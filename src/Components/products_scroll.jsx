@@ -21,7 +21,13 @@ export default function Products({ sub_category }) {
         setState({ ...state, pdts });
       }
     })();
-  });
+
+    return () => {
+      setState({
+        ...state,
+      });
+    };
+  }, []);
 
   return (
     <div className="-ct -b-x">
@@ -51,9 +57,7 @@ export default function Products({ sub_category }) {
       </button>
       <div className="-ch-all">
         <span>{sub_category.sub_category_name}</span>
-        <Link
-          to={`/catalog?sbc=${sub_category.id}&title=${sub_category.sub_category_name}`}
-        >
+        <Link to={`/catalog?sbc=${sub_category.id}`}>
           Check All <i className="las la-chevron-right"></i>
         </Link>
       </div>

@@ -125,7 +125,9 @@ class MainFooter extends Component {
             </div>
           </div>
           <div className="ftr-lw-center">
-            <div>2021 &copy; Dreamscom Technologies LTD</div>
+            <div>
+              {new Date().getFullYear()} &copy; Dreamscom Technologies LTD
+            </div>
             <div>All Rights Reserved</div>
           </div>
         </div>

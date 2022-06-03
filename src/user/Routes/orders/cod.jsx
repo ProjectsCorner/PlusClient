@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import user from "../../../app.config";
 import { Base64 } from "js-base64";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 /**
  * Components
@@ -30,11 +30,12 @@ export default function CheckOut() {
    * Hooks
    */
   const navigate = useNavigate();
+  const params = useParams();
   const [state, setState] = useState({});
 
   return (
     <>
-      <div className="nav">
+      <div className="nav order-nav">
         <div className="search-nav">
           <div className="logo">
             <img src={LOGO} alt="PLUSSHOPPING" height="50px" />
@@ -67,21 +68,26 @@ export default function CheckOut() {
               <img src={ThanksImage} alt="" width="60%" height="60%" />
             </div>
             <div className="">
-              Thanks for shopping with yammie.
+              Thanks for making an order with plus...
               <br />
-              Your order Number is <span className="order"></span>
+              Your order Number is{" "}
+              <span style={{ fontWeight: "bold" }}>{params.id}</span>
               <br />
               You will receive an EMAIL or SMS
               <br />
               containing the delivery information of your order.
             </div>
-
-            <button
-              className="-pay"
-              style={{ margin: "20px 0px", width: "100px !important" }}
-            >
-              Return to Home Page
-            </button>
+            <Link to="/">
+              <button
+                className="-pay"
+                style={{
+                  margin: "20px 0px",
+                  width: "100px !important",
+                }}
+              >
+                Return to Home Page
+              </button>
+            </Link>
           </div>
         </div>
       </div>

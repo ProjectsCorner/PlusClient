@@ -23,12 +23,29 @@ export default ({ products, title }) => {
     sort_discount_value: 0,
     sort_price: false,
     sort_discount: false,
+    show_small_sort_panel: window.innerWidth < 769 ? false : true,
   });
 
   return (
     <div className="main-CatalogCtr">
       <div className="sort-CatalogCtr -b-x">
-        <div className="ctlg-sort" id="ctlg-sort">
+        <button
+          className="sort-btn catalog_show_sort_panel"
+          onClick={() => {
+            setState({
+              ...state,
+              show_small_sort_panel: !state.show_small_sort_panel,
+            });
+          }}
+        >
+          {state.show_small_sort_panel ? "Hide Sort Panel" : "Show Sort Panel"}
+        </button>
+        <div
+          className="ctlg-sort catalog_show_sort_panel_ctr"
+          style={{
+            display: state.show_small_sort_panel ? "block" : "none",
+          }}
+        >
           <h3>Sort Between Prices</h3>
           <form
             id="sort-price-form"

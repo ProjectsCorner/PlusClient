@@ -15,16 +15,24 @@
   border-radius: 5px;
   background-color: #fff;
   margin-left: 10px;
+  height: fit-content;
 }
 .item-ctr > div:nth-child(2) > h4 {
   margin: 5px 15px;
 }
-.item-ctr > div:nth-child(2) > ul {
+.item-ctr > div:nth-child(2) > div {
   margin: 5px 20px;
+}
+
+.item-ctr > div:nth-child(2) li {
   list-style: none;
 }
-.item-ctr > div:nth-child(2) > ul > li {
-  margin: 10px;
+.item-ctr > div:nth-child(2) li:last-child {
+  list-style: none !important;
+}
+.item-ctr > div:nth-child(2) li:not(:first-child) {
+  margin: 5px 20px;
+  list-style: circle;
 }
 .item-img-ctr {
   flex: 1;

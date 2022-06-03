@@ -93,7 +93,7 @@ const Cart = () => {
           </div>
           <div className="cart_start_order">
             <div style={{ display: "flex" }}>
-              <button
+              {/* <button
                 className="plus-btn"
                 style={{
                   width: "200px",
@@ -119,7 +119,7 @@ const Cart = () => {
                 }}
               >
                 {cartState.saving_cart ? "Cart Saved..." : "Save Cart"}
-              </button>
+              </button> */}
               <button
                 className="plus-btn"
                 disabled={cart.length === 0}

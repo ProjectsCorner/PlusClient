@@ -81,7 +81,7 @@ export default function Register() {
   };
   useEffect(() => {
     if (user) {
-      nav("/user/profile");
+      nav(-1);
     }
   }, []);
 

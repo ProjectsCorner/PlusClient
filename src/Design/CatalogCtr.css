@@ -104,6 +104,12 @@ pdt-CatalogCtr - styles for the product
 /**
 pdt-CatalogCtr - styles for the product
 */
+.catalog_show_sort_panel {
+  display: none;
+}
+.catalog_show_sort_panel_ctr {
+  display: block;
+}
 .sort-CatalogCtr {
   flex: 0.75;
   height: fit-content;
@@ -176,4 +182,22 @@ Sort Container
     rgba(250, 164, 6, 0.7)
   );
   opacity: 0.8;
+}
+
+@media screen and (max-width: 768px) {
+  .main-CatalogCtr {
+    flex-direction: column-reverse;
+  }
+  .pdts-CatalogCtr {
+    margin: 10px 0px;
+  }
+  .sort-CatalogCtr {
+    margin: 10px 0px;
+  }
+  .catalog_show_sort_panel {
+    display: block;
+  }
+  .catalog_show_sort_panel_ctr {
+    display: none;
+  }
 }

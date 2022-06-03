@@ -31,7 +31,7 @@ export default function Login() {
   const nav = useNavigate();
   useEffect(() => {
     if (user) {
-      nav("/user/profile");
+      nav(-1);
     }
   });
   //state

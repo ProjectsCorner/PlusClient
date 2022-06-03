@@ -96,3 +96,21 @@
  *
  *user data styling
 */
+
+/*
+ *
+ *Responsive
+*/
+@media screen and (max-width: 1024px) {
+  .main-user-ctr {
+    width: 95%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .main-user-ctr > div:first-child {
+    display: none;
+  }
+  .user-data-ctr {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}

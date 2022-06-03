@@ -49,12 +49,26 @@ function Category() {
       <MainHeader />
       <section className="ctg-banner-ctr">
         <img
-          src={state.category.category_image || BannerImage}
+          src={
+            state.category.category_image
+              ? state.category.category_image
+              : BannerImage
+          }
           alt="SHOP ON PLUS"
         />
       </section>
       {state.sub_categories.length === 0 ? (
-        <></>
+        <section className="products-scroll-ctr">
+          <div
+            style={{
+              textAlign: "center",
+              margin: "30px 0px",
+              width: "100%",
+            }}
+          >
+            Loading Sub Categories...
+          </div>
+        </section>
       ) : (
         state.sub_categories.map((el, i) => {
           return (

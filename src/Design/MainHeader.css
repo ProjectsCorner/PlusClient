@@ -17,7 +17,9 @@ header {
   height: 3px;
   background-color: #ffbb00;
 }
-
+.search-bar-sm-appr {
+  display: none;
+}
 .hdr-nav-ctr {
   z-index: 20;
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
@@ -271,11 +273,24 @@ dropdown in the header
     height: 120px;
     object-fit: contain;
   }
-  .search-i-sm,
-  .user-i-sm,
-  .cart-i-sm,
   .menu-toggle {
     display: block;
+    margin-right: 2%;
+  }
+  .hdr-icons-ctr-sm {
+    display: flex;
+    flex: 4;
+    justify-content: flex-end;
+  }
+  .search-i-sm,
+  .user-i-sm,
+  .cart-i-sm {
+    display: block;
+    margin: 0px 5%;
+  }
+  .search-bar-sm-appr {
+    padding: 10px 0px;
+    background-color: #fff;
   }
 }
 /***
