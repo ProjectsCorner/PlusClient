@@ -7,7 +7,7 @@
   height: 4px;
   width: 100%;
   border-radius: 2px;
-  background-color: #ffbb00;
+  background-color: #85b811;
   margin: 15px 0px;
 }
 
@@ -84,7 +84,7 @@
   font-size: 20px;
   height: 25px;
   width: 25px;
-  background-color: #ffbb00;
+  background-color: #85b811;
   color: white;
   display: flex;
   justify-content: center;
@@ -136,7 +136,7 @@
   font-size: 20px;
   height: 25px;
   width: 25px;
-  background-color: #ffbb00;
+  background-color: #85b811;
   color: white;
   display: flex;
   justify-content: center;
@@ -186,7 +186,7 @@
   font-size: 18px;
   height: 20px;
   width: 20px;
-  background-color: #ffbb00;
+  background-color: #85b811;
   color: white;
   display: flex;
   justify-content: center;
@@ -214,7 +214,7 @@
 }
 
 .remove_from_cart_button:hover {
-  color: #ffbb00;
+  color: #85b811;
   cursor: pointer;
 }
 

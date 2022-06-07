@@ -78,7 +78,7 @@ export default function CheckOut() {
                 <TextField
                   variant="outlined"
                   // color="secondary"
-                  sx={{ color: "#ffbb00" }}
+                  sx={{ color: "#85B811" }}
                   label="Amount"
                   value="Loading Amount..."
                   onChange={() => {}}

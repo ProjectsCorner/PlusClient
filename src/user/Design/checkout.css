@@ -34,7 +34,7 @@
 .p-order-progress-b {
   height: 7px;
   width: 100%;
-  background-color: #ffbb00;
+  background-color: #85b811;
   border-radius: 40px;
   transition: all 0.5s ease-in-out;
 }
@@ -87,7 +87,7 @@
   border: none;
   outline: none;
   color: white;
-  background-color: #ffbb00;
+  background-color: #85b811;
   cursor: pointer;
 }
 ._ca-btn:hover {
@@ -147,7 +147,7 @@
   padding: 5px 0px 5px 35px;
 }
 .edit {
-  color: #ffbb00;
+  color: #85b811;
   cursor: pointer;
 }
 #pay-form {
@@ -197,7 +197,7 @@
   border: none;
   outline: none;
   color: white;
-  background-color: #ffbb00;
+  background-color: #85b811;
   cursor: pointer;
 }
 .-btn-a-d {
@@ -210,7 +210,7 @@
   border: none;
   outline: none;
   color: white;
-  background-color: #ffbb00;
+  background-color: #85b811;
   cursor: pointer;
 }
 .edit-a-ctr.active {
@@ -261,7 +261,7 @@
   font-size: 17px;
   border: none;
   outline: none;
-  background-color: #ffbb00;
+  background-color: #85b811;
   color: white;
   border-radius: 5px;
   box-shadow: 2px 2px 5px #c3c3c3;

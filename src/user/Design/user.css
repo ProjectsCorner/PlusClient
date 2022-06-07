@@ -36,14 +36,14 @@
 .user-link:hover {
   background-color: rgba(0, 0, 0, 0.05);
   cursor: pointer;
-  color: #ffbb00;
+  color: #85b811;
 }
 .user-link.active {
-  background-color: #ffbb00;
+  background-color: #85b811;
   color: white;
 }
 .user-link:last-child {
-  background-color: #ffbb00;
+  background-color: #85b811;
   color: white;
   font-size: 16px !important;
   display: flex;

@@ -12,7 +12,7 @@ import MainFooter from "../../Components/MainFooter";
 import FormsApi from "../../api/api";
 
 //assets
-import Banner from "../../assets/banner.jpg";
+import welcome_banner from "../../assets/banner_1.png";
 import welcome_shoes from "../../assets/airmax.jpg";
 import welcome_phone_accessories from "../../assets/studio-speech.png";
 import welcome_sandals from "../../assets/men_sandals.jpg";
@@ -156,17 +156,18 @@ function Home() {
           <div className="banner-pm">
             <PromotionImage
               images={[
-                welcome_cleaning,
-                welcome_computers,
-                welcome_drinks,
-                welcome_electronics,
+                welcome_banner,
+                welcome_banner,
+                welcome_banner,
+                welcome_banner,
+                welcome_banner,
               ]}
             />
           </div>
           <div className="banner-pm-sm">
             <div className="">
               <img
-                src={Banner}
+                src={welcome_banner}
                 alt="BANNER"
                 width="100%"
                 height="100%"
@@ -175,7 +176,7 @@ function Home() {
             </div>
             <div className="">
               <img
-                src={Banner}
+                src={welcome_banner}
                 alt="BANNER"
                 width="100%"
                 height="100%"
@@ -360,6 +361,8 @@ const PromotionImage = ({ images }) => {
           state.current_banner === images.length ? 1 : state.current_banner + 1,
       });
     }, 5000);
+
+    return () => {};
   });
 
   return (

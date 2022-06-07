@@ -20,7 +20,7 @@
   width: 35px;
   height: 35px;
   border-radius: 50px;
-  background-color: #ffbb00;
+  background-color: #85b811;
   display: none;
 }
 .-sc-b {
@@ -41,7 +41,7 @@
 .-ch-all {
   display: flex;
   justify-content: space-between;
-  background-color: #ffbb00;
+  background-color: #85b811;
   padding: 10px;
   text-transform: uppercase;
   position: absolute;

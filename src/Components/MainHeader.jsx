@@ -246,6 +246,17 @@ export default () => {
               </li>
             )}
           </ul>
+          <ul className="sd-ns1 sd-ns">
+            <div className="sd-hdr">Find Help on Plus</div>
+            <li className="sd-item">
+              <Link to="/help/request">
+                <span className="sd-item-name">
+                  <i className="las la-shopping-basket ctg-icon"></i>
+                  Request Your item
+                </span>
+              </Link>
+            </li>
+          </ul>
           <div>
             <div className="ftr-lw-center">
               <span style={{ fontWeight: "bold", fontSize: 20 }}>
@@ -329,7 +340,7 @@ export default () => {
                       : { display: "none" }
                   }
                 >
-                  <Link to="/help">
+                  <Link to="/help/request">
                     <li className="-help">
                       <i className="lar la-user"></i>
                       Request Item
@@ -446,7 +457,7 @@ export default () => {
                     <span
                       style={{
                         position: "absolute",
-                        backgroundColor: "#ffbb00",
+                        backgroundColor: "#85B811",
                         top: "-7px",
                         color: "#fff",
                         left: "15px",
@@ -488,7 +499,7 @@ export default () => {
                     <span
                       style={{
                         position: "absolute",
-                        backgroundColor: "#ffbb00",
+                        backgroundColor: "#85B811",
                         top: "-25px",
                         right: "-5px",
                         color: "#fff",

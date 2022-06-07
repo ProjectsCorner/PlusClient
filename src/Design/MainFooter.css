@@ -72,8 +72,8 @@ footer {
 
 .comment:focus,
 .contact:focus {
-  border: 1px solid #ffbb00;
-  box-shadow: 0px 0px 5px #ffbb00;
+  border: 1px solid #85b811;
+  box-shadow: 0px 0px 5px #85b811;
 }
 
 .footer-form-button {
@@ -82,7 +82,7 @@ footer {
   color: white;
   border: 0px;
   outline: none;
-  background-color: #ffbb00;
+  background-color: #85b811;
   margin: 5px 5px;
   border-radius: 5px;
   width: 40%;

@@ -1,14 +1,21 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 //styling
 import "../Design/MainFooter.css";
 
-//assets
+/**
+ *
+ * assests
+ */
 import AppleStore from "../assets/images/apple-store.jpg";
 import PlayStore from "../assets/images/play-store-3.jpg";
 import plus_logo from "../assets/logos/plus_logo_color.png";
 
-//icons
+/**
+ *
+ * material icons
+ */
 import FacebookIcon from "@material-ui/icons/Facebook";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import YouTubeIcon from "@material-ui/icons/YouTube";
@@ -95,8 +102,15 @@ class MainFooter extends Component {
               </div>
             </div>
             <div className="ftr-ns3">
-              <div className="ftr-hdg">Explore Plus</div>
-              <div className="ftr-link">About Plus</div>
+              <div className="ftr-hdg">Plus Products</div>
+              <div className="ftr-link">
+                <Link
+                  to="/help/request"
+                  style={{ color: "rgba(255, 255, 255, 0.5)" }}
+                >
+                  Request an Item
+                </Link>
+              </div>
               <div className="ftr-link">How to Order</div>
               <div className="ftr-link">Help &amp; FAQs</div>
               <div className="ftr-link">Help &amp; FAQs</div>

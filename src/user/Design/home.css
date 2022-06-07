@@ -33,7 +33,7 @@
 }
 
 .ctg-name:hover {
-  color: #ffbb00;
+  color: #85b811;
   cursor: pointer;
 }
 
@@ -43,7 +43,7 @@
 }
 
 .ctg-name:hover {
-  color: #ffbb00;
+  color: #85b811;
   cursor: pointer;
 }
 /* categories */
@@ -71,7 +71,7 @@
   cursor: pointer;
 }
 .banner-pm-indicators > button.banner-pm-indicator-active {
-  background-color: #ffbb00;
+  background-color: #85b811;
 }
 /* .banner-pm-btns-left,
 .banner-pm-btns-right {

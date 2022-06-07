@@ -99,10 +99,10 @@ const Cart = () => {
                   width: "200px",
                   height: "45px",
                   fontSize: "18px",
-                  backgroundColor: cartState.saving_cart ? "#ffbb00" : "white",
-                  border: cartState.saving_cart ? "none" : "1px solid #ffbb00",
+                  backgroundColor: cartState.saving_cart ? "#85B811" : "white",
+                  border: cartState.saving_cart ? "none" : "1px solid #85B811",
                   marginRight: "20px",
-                  color: cartState.saving_cart ? "white" : "#ffbb00",
+                  color: cartState.saving_cart ? "white" : "#85B811",
                 }}
                 onClick={() => {
                   localStorage.setItem("cart_id", JSON.stringify(cart));

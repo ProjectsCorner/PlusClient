@@ -44,6 +44,7 @@ import Account from "./Routes/account";
  * routes - help
  */
 import Help from "./Routes/help";
+import Request from "./Routes/help/request_item";
 
 function User() {
   return (
@@ -62,6 +63,7 @@ function User() {
         <Route path="order/payment/:id" element={<Payment />} />
         <Route path="order/finish/:id" element={<CashOnDelivery />} />
         <Route path="help" element={<Help />} />
+        <Route path="help/request" element={<Request />} />
       </Routes>
     </BrowserRouter>
   );
