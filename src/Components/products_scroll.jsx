@@ -17,14 +17,14 @@ export default function Products({ sub_category }) {
       let pdts = await new FormsApi().get(
         `/product/sub_category/${sub_category.id}`
       );
-      if (pdts !== "Error") {
-        setState({ ...state, pdts });
+      if (pdts !== "Error" && pdts.status) {
+        setState({ ...state, pdts: pdts.result });
       }
     })();
 
     return () => {
       setState({
-        ...state,
+        pdts: [],
       });
     };
   }, []);

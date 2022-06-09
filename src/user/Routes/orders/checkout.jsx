@@ -214,7 +214,10 @@ export default function CheckOut() {
                         }}
                         disablePortal
                         id="tags-standard"
-                        options={["Aggie's Saloon", "Amazing Grace Canteen"]}
+                        options={[
+                          "Jackie's Salon (next to Bako Hostel)",
+                          "Amazing Grace Canteen",
+                        ]}
                         renderInput={(params) => (
                           <TextField
                             {...params}
@@ -253,7 +256,10 @@ export default function CheckOut() {
                       <b>Select Your Preferred Payment Method</b>
                     </div>
                     <form id="pay-form" className="_pf" onSubmit={make_order}>
-                      <div className="mm-input">
+                      <div
+                        className="mm-input"
+                        style={{ opacity: "0.5", pointerEvents: "none" }}
+                      >
                         <input
                           required
                           type="radio"
@@ -271,11 +277,15 @@ export default function CheckOut() {
                           }}
                         />
                         <label htmlFor="payment_method" className="-mm-l">
-                          <b>Mobile Money</b>
+                          <b>Mobile Money </b>
+                          <small>Disabled for a moment</small>
                         </label>
                       </div>
 
-                      <div className="p-order-procedure">
+                      <div
+                        className="p-order-procedure"
+                        style={{ opacity: "0.5", pointerEvents: "none" }}
+                      >
                         <b>Mobile Money Payment Procedure:</b>
                         <ol>
                           <li>Click 'Finish Your Order'</li>
@@ -292,9 +302,9 @@ export default function CheckOut() {
                       <div
                         className="mm-input"
                         style={
-                          state.total_amount > 20000
-                            ? { opacity: "0.5", pointerEvents: "none" }
-                            : {}
+                          state.total_amount
+                            ? {}
+                            : { opacity: "0.5", pointerEvents: "none" }
                         }
                       >
                         <input
@@ -317,9 +327,9 @@ export default function CheckOut() {
                         <label htmlFor="payment_method">
                           <b>Cash On Delivery </b>
                         </label>
-                        {state.total_amount > 20000 && (
+                        {/* {state.total_amount > 20000 && (
                           <small>...Not available, Amount &gt; 20,000...</small>
-                        )}
+                        )} */}
                       </div>
                       <div className="am-t-p">
                         <div className="sub-total -am">
@@ -441,14 +451,8 @@ export default function CheckOut() {
                     </div>
                     <div className="-st-delivery -st">
                       <div className="-st-content">
-                        <span>Total Delivery Fees</span>
-                        <span className="_shp">
-                          {`UGX ${
-                            state.total_amount && state.total_shipping_fee
-                              ? state.total_shipping_fee
-                              : "..."
-                          }`}
-                        </span>
+                        <span></span>
+                        <span className="_shp"></span>
                       </div>
                     </div>
                     <div className="-st-totals -st">
@@ -456,11 +460,7 @@ export default function CheckOut() {
                         <span>Total</span>
                         <span className="">
                           <span className="_ony-tt">
-                            {`UGX ${
-                              state.total_amount && state.total_shipping_fee
-                                ? state.total_shipping_fee + state.total_amount
-                                : "..."
-                            }`}
+                            {`UGX ${state.total_amount}`}
                           </span>
                         </span>
                       </div>

@@ -1,4 +1,4 @@
-import react, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 /**
  *
@@ -7,7 +7,6 @@ import react, { useEffect, useState } from "react";
 import MainHeader from "../../Components/MainHeader";
 import MainFooter from "../../Components/MainFooter";
 import CatalogCtr from "../../Components/CatalogCtr";
-import Products from "../../Components/products_scroll";
 
 /**
  * api
@@ -26,25 +25,33 @@ const Catalog = () => {
   const [state, setState] = useState({ products: [] });
 
   const searchParams = new URLSearchParams(window.location.search);
-  useEffect(async () => {
-    let res = searchParams.get("sbc")
-      ? await new FormsApi().get(
-          `/product/sub_category/${searchParams.get("sbc")}`
-        )
-      : await new FormsApi().get(`/product/search/${searchParams.get("q")}`);
-    if (res !== "Error") {
-      if (res.status === false) {
-        setState({ ...state, products: [] });
-      } else {
-        setState({ ...state, products: res });
+  useEffect(() => {
+    (async () => {
+      let res = searchParams.get("sbc")
+        ? await new FormsApi().get(
+            `/product/sub_category/${searchParams.get("sbc")}`
+          )
+        : await new FormsApi().get(`/product/search/${searchParams.get("q")}`);
+      if (res !== "Error") {
+        if (res.status === false) {
+          setState({ ...state, products: [] });
+        } else {
+          setState({ ...state, products: res.result });
+        }
       }
-    }
+    })();
+
+    return () => {
+      setState({
+        products: [],
+      });
+    };
   }, []);
 
   return (
     <>
       <MainHeader />
-      <main className="width-auto">
+      <main className="width-auto width-auto-catalog ">
         <div style={{ width: "100%" }}>
           <CatalogCtr
             products={state.products}

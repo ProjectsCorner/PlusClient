@@ -28,6 +28,7 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
  */
 import IMG from "../../../assets/request.svg";
 import "../../Design/item.css";
+import user from "../../../app.config";
 
 export default () => {
   const navigate = useNavigate();
@@ -48,7 +49,7 @@ export default () => {
     new FormData(e.target).forEach((el, i) => {
       req_data[i] = el;
     });
-
+    req_data["user_id"] = user.id;
     if (state.img) {
       const storageRef = ref(storage, `/images/requests/${state.img.name}`);
       const uploadTask = uploadBytesResumable(storageRef, state.img);

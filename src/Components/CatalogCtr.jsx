@@ -1,20 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Base64 } from "js-base64";
-import user from "../app.config";
 
 // material
 import { AddShoppingCartOutlined } from "@material-ui/icons";
 import { CircularProgress } from "@material-ui/core";
 
-//api
-import FormsApi from "../api/api";
-
 //styling
 import "../Design/CatalogCtr.css";
 
 //assets
-import Welcome_Shoes from "../assets/airmax.jpg";
+import Banner from "../assets/banner.png";
 
 export default ({ products, title }) => {
   const [state, setState] = useState({
@@ -53,6 +49,7 @@ export default ({ products, title }) => {
             onSubmit={(e) => {
               e.preventDefault();
               setState({
+                ...state,
                 sort_price: true,
               });
             }}
@@ -103,6 +100,7 @@ export default ({ products, title }) => {
             onSubmit={(e) => {
               e.preventDefault();
               setState({
+                ...state,
                 sort_discount: true,
               });
             }}
@@ -416,7 +414,7 @@ const Product = ({ product }) => {
       </div>
       <div className="pdt-CatalogCtr-img">
         <img
-          src={images.length === 0 ? Welcome_Shoes : images[0]}
+          src={images.length === 0 ? Banner : images[0]}
           alt="PLUS PRODUCT FROM PROPS"
         />
       </div>

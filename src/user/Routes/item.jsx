@@ -17,7 +17,7 @@ import FormsApi from "../../api/api";
  */
 import "../Design/home.css";
 import "../Design/item.css";
-import ProductImage from "../../assets/airmax.jpg";
+import ProductImage from "../../assets/banner.png";
 
 /**
  *
@@ -40,21 +40,24 @@ function Item() {
       let res = await new FormsApi().get(`/product/${params.id}`);
       let sub_categories = await new FormsApi().get(`/sub-category/all`);
       if (res !== "Error" && sub_categories !== "Error") {
-        console.log(sub_categories);
-        console.log(res);
-        if (res.status !== false) {
-          let filtered = sub_categories.filter(
-            (el) => el.id === res.result.product.product_sub_category
-          );
-          setState({
-            ...state,
-            product: res.result.product || {},
-            seller: res.result.seller || {},
-            sub_categories: filtered,
-          });
+        if (sub_categories.status && res.status) {
+          if (res.status !== false) {
+            let filtered = sub_categories.result.filter(
+              (el) => el.id === res.result.product.product_sub_category
+            );
+            setState({
+              ...state,
+              product: res.result.product || {},
+              seller: res.result.seller || {},
+              sub_categories: filtered,
+            });
+          }
         }
       }
     })();
+    return () => {
+      setState({ product: {}, seller: {}, sub_categories: [] });
+    };
   }, []);
 
   const add_to_cart = () => {

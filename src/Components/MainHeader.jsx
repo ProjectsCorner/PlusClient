@@ -4,7 +4,7 @@
  */
 import React, { useEffect, useState } from "react";
 import { Base64 } from "js-base64";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import user_ from "../app.config";
 
 /**
@@ -31,6 +31,7 @@ export default () => {
    *
    * hooks for the component
    */
+  const router_location = useLocation();
   const navigate = useNavigate();
   const [state, setState] = useState({
     helpDropDownActive: false,
@@ -48,6 +49,9 @@ export default () => {
     e.preventDefault();
     const searchValue = new FormData(e.target).get("search");
     navigate(`/catalog?q=${searchValue}`);
+    if (router_location.pathname === "/catalog") {
+      window.location.reload();
+    }
   };
 
   useEffect(() => {

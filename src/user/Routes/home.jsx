@@ -32,17 +32,16 @@ import "../Design/home.css";
 function Home() {
   const [state, setState] = useState({
     bannerCounter: 1,
-    banner: ["https://picsum.photos/1000", "https://picsum.photos/1000"],
     sub_categories: [],
   });
 
   useEffect(() => {
     (async () => {
       let sub_categories = await new FormsApi().get(`/sub-category/all`);
-      if (sub_categories !== "Error") {
+      if (sub_categories !== "Error" && sub_categories.status) {
         setState({
           ...state,
-          sub_categories,
+          sub_categories: sub_categories.result,
         });
       }
     })();
@@ -50,7 +49,6 @@ function Home() {
     return () => {
       setState({
         ...state,
-        banner: ["https://picsum.photos/1000", "https://picsum.photos/1000"],
         sub_categories: [],
       });
     };

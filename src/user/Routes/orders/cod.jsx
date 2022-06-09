@@ -73,7 +73,7 @@ export default function CheckOut() {
               Your order Number is{" "}
               <span style={{ fontWeight: "bold" }}>{params.id}</span>
               <br />
-              You will receive an EMAIL or SMS
+              You will receive an EMAIL or SMS or a Phone call
               <br />
               containing the delivery information of your order.
             </div>

@@ -34,13 +34,22 @@ function Category() {
         `/product/category/${params.id}`
       );
       if (sub_categories !== "Error" && category !== "Error") {
-        setState({
-          ...state,
-          category,
-          sub_categories,
-          category_pdts,
-        });
+        if (sub_categories.status && category.status) {
+          setState({
+            ...state,
+            category: category.result,
+            sub_categories: sub_categories.result,
+            category_pdts: category_pdts.result,
+          });
+        }
       }
+      return () => {
+        setState({
+          sub_categories: [],
+          category: {},
+          category_pdts: [],
+        });
+      };
     })();
   }, []);
 
@@ -79,7 +88,7 @@ function Category() {
         })
       )}
 
-      <div className="width-auto">
+      <div className="width-auto width-auto-catalog">
         <CatalogCtr
           products={state.category_pdts}
           title={state.category.category_name}
