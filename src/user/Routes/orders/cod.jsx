@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from "react";
-import user from "../../../app.config";
-import { Base64 } from "js-base64";
+import React from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 /**
@@ -15,8 +13,6 @@ import "../../Design/order_finish.css";
 
 //material
 import { QuestionAnswerOutlined, Phone } from "@material-ui/icons";
-import { TextField } from "@material-ui/core";
-import { Autocomplete, Alert as MuiAlert } from "@material-ui/lab";
 
 /**
  *
@@ -29,9 +25,7 @@ export default function CheckOut() {
   /**
    * Hooks
    */
-  const navigate = useNavigate();
   const params = useParams();
-  const [state, setState] = useState({});
 
   return (
     <>
@@ -70,7 +64,7 @@ export default function CheckOut() {
             <div className="">
               Thanks for making an order with plus...
               <br />
-              Your order Number is{" "}
+              Your order Number is
               <span style={{ fontWeight: "bold" }}>{params.id}</span>
               <br />
               You will receive an EMAIL or SMS or a Phone call
