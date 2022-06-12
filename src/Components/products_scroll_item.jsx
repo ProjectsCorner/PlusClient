@@ -1,7 +1,7 @@
 import react from "react";
 
 //assets
-import Banner from "../assets/airmax.jpg";
+import Banner from "../assets/banner.png";
 
 // styling
 import "../Design/products_scroll.css";

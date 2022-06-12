@@ -14,7 +14,7 @@ import "../Design/home.css";
 import "../Design/Category.css";
 
 //assets
-import BannerImage from "../../assets/airmax.jpg";
+import BannerImage from "../../assets/banner.png";
 
 function Category() {
   const [state, setState] = useState({

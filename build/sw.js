@@ -43,13 +43,12 @@ self.addEventListener("activate", (e) => {
 self.addEventListener("fetch", (e) => {
   e.respondWith(
     caches.match(e.request).then((response) => {
-      return (
-        response ||
-        fetch(e.request).then((response) => {
-          return response;
-        })
-      );
+      return response
+        ? response
+        : fetch(e.request).then((response) => {
+            return response;
+          });
     })
   );
-  //   e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
+  // e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
 });

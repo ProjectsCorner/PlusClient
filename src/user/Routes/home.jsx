@@ -1,18 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
 /**
  * api
  */
 
-//components
+/**
+ * components
+ */
 import MainHeader from "../../Components/MainHeader";
 import Products from "../../Components/products_scroll";
 import MainFooter from "../../Components/MainFooter";
 import FormsApi from "../../api/api";
 
-//assets
-import welcome_banner from "../../assets/banner_1.png";
+/**
+ * assets
+ */
+import welcome_banner_1 from "../../assets/banner_2.png";
+import welcome_banner_2 from "../../assets/banner_1.png";
+import welcome_banner_3 from "../../assets/banner_3.png";
+import welcome_banner_4 from "../../assets/banner_4.png";
 import welcome_shoes from "../../assets/airmax.jpg";
 import welcome_phone_accessories from "../../assets/studio-speech.png";
 import welcome_sandals from "../../assets/men_sandals.jpg";
@@ -154,18 +160,17 @@ function Home() {
           <div className="banner-pm">
             <PromotionImage
               images={[
-                welcome_banner,
-                welcome_banner,
-                welcome_banner,
-                welcome_banner,
-                welcome_banner,
+                welcome_banner_4,
+                welcome_banner_2,
+                welcome_banner_3,
+                welcome_banner_1,
               ]}
             />
           </div>
           <div className="banner-pm-sm">
             <div className="">
               <img
-                src={welcome_banner}
+                src={welcome_banner_2}
                 alt="BANNER"
                 width="100%"
                 height="100%"
@@ -174,7 +179,7 @@ function Home() {
             </div>
             <div className="">
               <img
-                src={welcome_banner}
+                src={welcome_banner_3}
                 alt="BANNER"
                 width="100%"
                 height="100%"
@@ -353,14 +358,19 @@ const PromotionImage = ({ images }) => {
   const [state, setState] = useState({ current_banner: 1 });
 
   useEffect(() => {
+    let isRunning = true;
     setTimeout(() => {
-      setState({
-        current_banner:
-          state.current_banner === images.length ? 1 : state.current_banner + 1,
-      });
+      if (isRunning) {
+        setState({
+          current_banner:
+            state.current_banner === images.length
+              ? 1
+              : state.current_banner + 1,
+        });
+      }
     }, 5000);
 
-    return () => {};
+    return () => (isRunning = false);
   });
 
   return (

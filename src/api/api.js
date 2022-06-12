@@ -2,8 +2,8 @@ import axios from "axios";
 
 // const url = "http://192.168.31.70:8000/api"; //office
 // const url = "http://10.245.3.224:8000/api"; //lab/
-const url = "http://127.0.0.1:8000/api"; //local
-// const url = "https://plusapi.herokuapp.com/api"; //heroku
+// const url = "http://127.0.0.1:8000/api"; //local
+const url = "https://plusapi.herokuapp.com/api"; //heroku
 
 export default class FormsApi {
   //post requests
