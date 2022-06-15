@@ -1,6 +1,6 @@
 const cacheName = "v1";
 
-const cacheAssets = ["index.html"];
+const cacheAssets = ["index.html", "index.js", "index.css"];
 
 /**
  *

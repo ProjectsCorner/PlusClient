@@ -12,7 +12,7 @@ import "../Design/CatalogCtr.css";
 //assets
 import Banner from "../assets/banner.png";
 
-export default ({ products, title }) => {
+const CatalogCtr = ({ products, title }) => {
   const [state, setState] = useState({
     higher_sort_price: 0,
     lower_sort_price: 0,
@@ -200,6 +200,7 @@ export default ({ products, title }) => {
         <div className="-b-x">
           {products.length === 0 && <div>No Products to Display...</div>}
           {products.map((v, i) => {
+            let message = " ";
             if (state.sort_price && state.sort_discount) {
               if (
                 v.product_price >= state.lower_sort_price &&
@@ -218,59 +219,58 @@ export default ({ products, title }) => {
                         </div>
                       );
                     } else {
-                      return <div key={i}>No Products to Display...</div>;
+                      return <div key={i}>{message}</div>;
                     }
-                    break;
+
                   case 2:
-                    if (discount > 10 && discount < 20) {
+                    if (discount >= 10 && discount < 20) {
                       return (
                         <div key={i} className="pdt-CatalogCtr">
                           <Product product={v} />
                         </div>
                       );
                     } else {
-                      return <div key={i}>No Products to Display...</div>;
+                      return <div key={i}>{message}</div>;
                     }
-                    break;
+
                   case 3:
-                    if (discount > 20 && discount < 30) {
+                    if (discount >= 20 && discount < 30) {
                       return (
                         <div key={i} className="pdt-CatalogCtr">
                           <Product product={v} />
                         </div>
                       );
                     } else {
-                      return <div key={i}>No Products to Display...</div>;
+                      return <div key={i}>{message}</div>;
                     }
-                    break;
+
                   case 4:
-                    if (discount > 30 && discount < 40) {
+                    if (discount >= 30 && discount < 40) {
                       return (
                         <div key={i} className="pdt-CatalogCtr">
                           <Product product={v} />
                         </div>
                       );
                     } else {
-                      return <div key={i}>No Products to Display...</div>;
+                      return <div key={i}>{message}</div>;
                     }
-                    break;
+
                   case 5:
-                    if (discount > 40) {
+                    if (discount >= 40) {
                       return (
                         <div key={i} className="pdt-CatalogCtr">
                           <Product product={v} />
                         </div>
                       );
                     } else {
-                      return <div key={i}>No Products to Display...</div>;
+                      return <div key={i}>{message}</div>;
                     }
-                    break;
+
                   default:
-                    return <div key={i}>No Products to Display...</div>;
-                    break;
+                    return <div key={i}>{message}</div>;
                 }
               } else {
-                return <div key={i}>No Products to Display...</div>;
+                return <div key={i}>{message}</div>;
               }
             } else if (state.sort_price) {
               if (
@@ -283,7 +283,7 @@ export default ({ products, title }) => {
                   </div>
                 );
               } else {
-                return <div key={i}>No Products to Display...</div>;
+                return <div key={i}>{message}</div>;
               }
             } else if (state.sort_discount) {
               let discount = Math.round(
@@ -298,9 +298,9 @@ export default ({ products, title }) => {
                       </div>
                     );
                   } else {
-                    return <div key={i}>No Products to Display...</div>;
+                    return <div key={i}>{message}</div>;
                   }
-                  break;
+
                 case 2:
                   if (discount > 10 && discount < 20) {
                     return (
@@ -309,9 +309,9 @@ export default ({ products, title }) => {
                       </div>
                     );
                   } else {
-                    return <div key={i}>No Products to Display...</div>;
+                    return <div key={i}>{message}</div>;
                   }
-                  break;
+
                 case 3:
                   if (discount > 20 && discount < 30) {
                     return (
@@ -320,9 +320,9 @@ export default ({ products, title }) => {
                       </div>
                     );
                   } else {
-                    return <div key={i}>No Products to Display...</div>;
+                    return <div key={i}>{message}</div>;
                   }
-                  break;
+
                 case 4:
                   if (discount > 30 && discount < 40) {
                     return (
@@ -331,9 +331,9 @@ export default ({ products, title }) => {
                       </div>
                     );
                   } else {
-                    return <div key={i}>No Products to Display...</div>;
+                    return <div key={i}>{message}</div>;
                   }
-                  break;
+
                 case 5:
                   if (discount > 40) {
                     return (
@@ -342,12 +342,11 @@ export default ({ products, title }) => {
                       </div>
                     );
                   } else {
-                    return <div key={i}>No Products to Display...</div>;
+                    return <div key={i}>{message}</div>;
                   }
-                  break;
+
                 default:
-                  return <div key={i}>No Products to Display...</div>;
-                  break;
+                  return <div key={i}>{message}</div>;
               }
             } else {
               return (
@@ -362,6 +361,8 @@ export default ({ products, title }) => {
     </div>
   );
 };
+
+export default CatalogCtr;
 
 const Product = ({ product }) => {
   /**
