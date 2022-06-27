@@ -68,7 +68,7 @@ export default function Login() {
         sessionStorage.setItem("token", data);
         setSubmit(false);
       }
-      window.location.reload();
+      nav(0);
     }
   };
 

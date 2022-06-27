@@ -368,7 +368,7 @@ const Product = ({ product }) => {
   /**
    * Hooks
    */
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [state, setState] = useState({ adding: false });
 
   const add_to_cart = () => {
@@ -395,7 +395,6 @@ const Product = ({ product }) => {
         ...state,
         adding: false,
       });
-      navigate(0);
     }, 2000);
   };
 

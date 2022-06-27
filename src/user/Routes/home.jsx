@@ -36,6 +36,11 @@ import welcome_cleaning from "../../assets/cleaning.jpg";
 import "../Design/home.css";
 
 function Home() {
+
+  /**
+   * hooks used
+   */
+  
   const [state, setState] = useState({
     bannerCounter: 1,
     sub_categories: [],
@@ -52,6 +57,10 @@ function Home() {
       }
     })();
 
+    const searchParams = new URLSearchParams(window.location.search);
+    if (searchParams.get("search")) {
+      navigate(`/catalog?q=${searchParams.get("search")}`);
+    }
     return () => {
       setState({
         ...state,

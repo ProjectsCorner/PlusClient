@@ -48,9 +48,10 @@ export default () => {
   const submitSearch = (e) => {
     e.preventDefault();
     const searchValue = new FormData(e.target).get("search");
-    navigate(`/catalog?q=${searchValue}`);
     if (router_location.pathname === "/catalog") {
-      window.location.reload();
+      navigate(`/?search=${searchValue}`);
+    } else {
+      navigate(`/catalog?q=${searchValue}`);
     }
   };
 
